@@ -8,6 +8,8 @@ builder.Services.AddMassTransit(bus =>
     bus.AddConsumer<MyConsumer>();
     bus.UsingInMemory((context, cfg) =>
     {
+        cfg.UseConsumeFilter<MyConsumerFilter>(context);
+        
         cfg.ReceiveEndpoint("my-queue", e =>
         {
             e.UseConsumeFilter<MyConsumerFilter>(context);
